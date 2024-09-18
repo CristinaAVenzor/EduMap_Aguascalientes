@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "schools-analysis"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Spanish
+      - href: English.qmd
+        text: English
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+
+
