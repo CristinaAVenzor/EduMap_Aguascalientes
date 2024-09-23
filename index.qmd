@@ -146,12 +146,12 @@ mapa <- st_read(paste0(path2SP,"Data/5_1_4_3_Municipios_shape")) %>%
         mutate(NOMGEO = case_when(NOMGEO == "Aguascalientes"         ~ "AGUASCALIENTES",
                                   NOMGEO == "Asientos"               ~ "ASIENTOS",
                                   NOMGEO == "Calvillo"               ~ "CALVILLO",
-                                  NOMGEO == "Cos\xedo"               ~ "COSÍO",
-                                  NOMGEO == "Jes\xfas Mar\xeda"      ~ "JESÚS MARÍA",
-                                  NOMGEO == "Pabell\xf3n de Arteaga" ~ "ENCARNACIÓN DE DÍAZ",
-                                  NOMGEO == "Rinc\xf3n de Romos"     ~ "RINCÓN DE ROMOS",
-                                  NOMGEO == "San Jos\xe9 de Gracia"  ~ "SAN JOSÉ DE GRACIA",
-                                  NOMGEO == "Tepezal\xe1"            ~ "TEPEZALÁ",
+                                  NOMGEO == "Cos�o"               ~ "COSÍO",
+                                  NOMGEO == "Jes�s Mar�a"      ~ "JESÚS MARÍA",
+                                  NOMGEO == "Pabell�n de Arteaga" ~ "ENCARNACIÓN DE DÍAZ",
+                                  NOMGEO == "Rinc�n de Romos"     ~ "RINCÓN DE ROMOS",
+                                  NOMGEO == "San Jos� de Gracia"  ~ "SAN JOSÉ DE GRACIA",
+                                  NOMGEO == "Tepezal�"            ~ "TEPEZALÁ",
                                   NOMGEO == "El Llano"               ~ "EL LLANO",
                                   NOMGEO == "San Francisco de los Romo" ~ "SAN FRANCISCO DE LOS ROMO")) %>% 
       rename(MUNICIPIO = NOMGEO)
