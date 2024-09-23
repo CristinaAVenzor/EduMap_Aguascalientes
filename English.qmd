@@ -29,7 +29,8 @@ education_path <- c(" MEDIA SUPERIOR",
 
 
 matrix_profile <- as.data.frame(schools) %>%
-                  mutate(NIVEL = str_trim(NIVEL)) %>% 
+                  mutate(NIVEL = str_trim(NIVEL),
+                         SOSTENIMIENTO = str_trim(SOSTENIMIENTO)) %>% 
                   group_by(NIVEL, SOSTENIMIENTO) %>%
                   summarise(value = n(), .groups = 'drop') %>%
                   rename(source = SOSTENIMIENTO, target = NIVEL) %>% 
@@ -38,19 +39,21 @@ matrix_profile <- as.data.frame(schools) %>%
                                                target == "PRIMARIA"   ~ 2,
                                                target == "SECUNDARIA" ~ 3,
                                                target == "MEDIA SUPERIOR" ~ 4,
-                                               target == "SUPERIOR"  ~ 5)) %>% 
-                arrange(order_var) %>% 
-                group_by(target)  %>%
-                mutate(
-                 value2plot = value / sum(value) * 100,
-                 value2plot = paste0(round(value2plot, 0), "%"), 
-                 # target = paste0(target, ", \n", value2plot)
-                 ) %>% 
-                ungroup() #%>% 
-                # group_by(source)  %>%
-                # mutate(
-                #   value2source = value / sum(value) * 100,
-                #   value2source = paste0(round(value2source, 0), "%"))
+                                               target == "SUPERIOR"  ~ 5),
+                         target = case_when(target == "PREESCOLAR" ~ "KINDERGARTEN", 
+                                            target == "PRIMARIA"   ~ "ELEMENTARY SCHOOL",
+                                            target == "SECUNDARIA" ~ "MIDDLE SCHOOL",
+                                            target == "MEDIA SUPERIOR" ~ "HIGH SCHOOL",
+                                            target == "SUPERIOR"  ~ "POSTSECONDARY EDUCATION"),
+                         source = case_when( source == "PÚBLICO" ~ "PUBLIC",
+                                            source == "PRIVADO" ~ "PRIVATE",
+                                            T ~ NA_character_)) %>% 
+                  arrange(order_var) %>% 
+                  group_by(target)  %>%
+                  mutate(
+                   value2plot = value / sum(value) * 100,
+                   value2plot = paste0(round(value2plot, 0), "%")) %>% 
+                  ungroup() 
 
 
 nodes <- data.frame(
@@ -86,13 +89,13 @@ ft <- flextable(matrix_profile_display)
 
 # Apply conditional background color for rows where TIPO is "PÚBLICO"
 ft <- ft %>%
-  bg(i = ~ TIPO == "PÚBLICO", bg = "grey", part = "body") %>%
+  bg(i = ~ TIPO == "PUBLIC", bg = "grey", part = "body") %>%
   theme_vanilla() %>%
   set_header_labels(
-    Nivel = "Nivel Educativo",
-    TIPO = "Tipo de Sostenimiento",
-    Total = "Total de Escuelas",
-    Proporción = "Proporción (%)"
+    Nivel = "Educational Level",
+    TIPO = "Founding source",
+    Total = "Total of Schools",
+    Proporción = "Percentage (%)"
   ) %>%
   fontsize(size = 10) %>%
   bold(part = "header")
@@ -136,12 +139,12 @@ mapa <- st_read(paste0(path2SP,"Data/5_1_4_3_Municipios_shape")) %>%
         mutate(NOMGEO = case_when(NOMGEO == "Aguascalientes"         ~ "AGUASCALIENTES",
                                   NOMGEO == "Asientos"               ~ "ASIENTOS",
                                   NOMGEO == "Calvillo"               ~ "CALVILLO",
-                                  NOMGEO == "Cos\xedo"               ~ "COSÍO",
-                                  NOMGEO == "Jes\xfas Mar\xeda"      ~ "JESÚS MARÍA",
-                                  NOMGEO == "Pabell\xf3n de Arteaga" ~ "ENCARNACIÓN DE DÍAZ",
-                                  NOMGEO == "Rinc\xf3n de Romos"     ~ "RINCÓN DE ROMOS",
-                                  NOMGEO == "San Jos\xe9 de Gracia"  ~ "SAN JOSÉ DE GRACIA",
-                                  NOMGEO == "Tepezal\xe1"            ~ "TEPEZALÁ",
+                                  NOMGEO == "Cos�o"               ~ "COSÍO",
+                                  NOMGEO == "Jes�s Mar�a"      ~ "JESÚS MARÍA",
+                                  NOMGEO == "Pabell�n de Arteaga" ~ "ENCARNACIÓN DE DÍAZ",
+                                  NOMGEO == "Rinc�n de Romos"     ~ "RINCÓN DE ROMOS",
+                                  NOMGEO == "San Jos� de Gracia"  ~ "SAN JOSÉ DE GRACIA",
+                                  NOMGEO == "Tepezal�"            ~ "TEPEZALÁ",
                                   NOMGEO == "El Llano"               ~ "EL LLANO",
                                   NOMGEO == "San Francisco de los Romo" ~ "SAN FRANCISCO DE LOS ROMO")) %>% 
       rename(MUNICIPIO = NOMGEO)
@@ -207,9 +210,9 @@ ft <- flextable(data2plot)
 ft <- ft %>%
   theme_vanilla() %>%
   set_header_labels(
-    MUNICIPIO = "Nivel Educativo",
-    value = "Total de Escuelas",
-    value2plot = "Proporción (%)"
+    MUNICIPIO = "Educational Level",
+    value = "Total of Schools",
+    value2plot = "Percentage (%)"
   ) %>%
   fontsize(size = 10) %>%
   bold(part = "header")
