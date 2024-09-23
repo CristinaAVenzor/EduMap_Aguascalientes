@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>schools-analysis - Analysis of Educational Institutions in Aguascalientes, Mexico</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/d3-4.5.0/d3.min.js"></script>
+<script src="site_libs/sankey-1/sankey.js"></script>
+<script src="site_libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
+<link href="site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">schools-analysis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Spanish</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./English.html" rel="" target="">
+ <span class="menu-text">English</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Code.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Code</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#educational-access" id="toc-educational-access" class="nav-link active" data-scroll-target="#educational-access">Educational Access</a></li>
+  <li><a href="#distribution-of-schools-by-educational-level-and-sector" id="toc-distribution-of-schools-by-educational-level-and-sector" class="nav-link" data-scroll-target="#distribution-of-schools-by-educational-level-and-sector">Distribution of schools by educational level and sector</a></li>
+  <li><a href="#escuelas-por-ubicación" id="toc-escuelas-por-ubicación" class="nav-link" data-scroll-target="#escuelas-por-ubicación">Escuelas por ubicación</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analysis of Educational Institutions in Aguascalientes, Mexico</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="educational-access" class="level1">
+<h1>Educational Access</h1>
+<p>In Mexico, the discussion on access to education through public and private institutions focuses on key issues such as equity, educational quality, and the role of the state. Although public education has been the main means of access for most Mexicans, challenges persist in terms of coverage, especially in rural areas, while private education has grown significantly, mainly in urban areas and higher levels, although its access is limited to more privileged sectors.</p>
+<p>This duality has generated a gap in educational opportunities, exacerbating socioeconomic inequalities. The current discussion also includes the debate on the regulation of the private sector and the financing of both modalities, in a context that seeks to guarantee the right to quality education for all.</p>
+</section>
+<section id="distribution-of-schools-by-educational-level-and-sector" class="level1">
+<h1>Distribution of schools by educational level and sector</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Required Packages, and data set</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Settings.R"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Upload data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">paste0</span>(path2SP,<span class="st">"Data/IEA_busqueda_08-08-2024.csv"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2586 Columns: 12
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (12): CLAVE CCT, TURNO, NIVEL, SOSTENIMIENTO, NOMBRE, CALLE, NUMERO, COL...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>education_path <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">" MEDIA SUPERIOR"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">" SECUNDARIA"</span>,                  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">" PREESCOLAR"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">" PRIMARIA"</span>,                </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">" SUPERIOR"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>matrix_profile <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(schools) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">NIVEL =</span> <span class="fu">str_trim</span>(NIVEL),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">SOSTENIMIENTO =</span> <span class="fu">str_trim</span>(SOSTENIMIENTO)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(NIVEL, SOSTENIMIENTO) <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">rename</span>(<span class="at">source =</span> SOSTENIMIENTO, <span class="at">target =</span> NIVEL) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(<span class="sc">!</span>target <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"CAPACITACION PARA EL TRABAJO"</span>, <span class="st">"ESPECIAL"</span>, <span class="st">"CONAFE"</span>, <span class="st">"INICIAL"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">order_var =</span> <span class="fu">case_when</span>(target <span class="sc">==</span> <span class="st">"PREESCOLAR"</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                                               target <span class="sc">==</span> <span class="st">"PRIMARIA"</span>   <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                                               target <span class="sc">==</span> <span class="st">"SECUNDARIA"</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                                               target <span class="sc">==</span> <span class="st">"MEDIA SUPERIOR"</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                                               target <span class="sc">==</span> <span class="st">"SUPERIOR"</span>  <span class="sc">~</span> <span class="dv">5</span>),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">target =</span> <span class="fu">case_when</span>(target <span class="sc">==</span> <span class="st">"PREESCOLAR"</span> <span class="sc">~</span> <span class="st">"KINDERGARTEN"</span>, </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                                            target <span class="sc">==</span> <span class="st">"PRIMARIA"</span>   <span class="sc">~</span> <span class="st">"ELEMENTARY SCHOOL"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                                            target <span class="sc">==</span> <span class="st">"SECUNDARIA"</span> <span class="sc">~</span> <span class="st">"MIDDLE SCHOOL"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                            target <span class="sc">==</span> <span class="st">"MEDIA SUPERIOR"</span> <span class="sc">~</span> <span class="st">"HIGH SCHOOL"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                            target <span class="sc">==</span> <span class="st">"SUPERIOR"</span>  <span class="sc">~</span> <span class="st">"POSTSECONDARY EDUCATION"</span>),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">source =</span> <span class="fu">case_when</span>( source <span class="sc">==</span> <span class="st">"PÚBLICO"</span> <span class="sc">~</span> <span class="st">"PUBLIC"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                                            source <span class="sc">==</span> <span class="st">"PRIVADO"</span> <span class="sc">~</span> <span class="st">"PRIVATE"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                                            T <span class="sc">~</span> <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">arrange</span>(order_var) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(target)  <span class="sc">%&gt;%</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value2plot =</span> value <span class="sc">/</span> <span class="fu">sum</span>(value) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">value2plot =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(value2plot, <span class="dv">0</span>), <span class="st">"%"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ungroup</span>() </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name=</span><span class="fu">c</span>(<span class="fu">as.character</span>(matrix_profile<span class="sc">$</span>source), </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">as.character</span>(matrix_profile<span class="sc">$</span>target)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">unique</span>())</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># With networkD3, connection must be provided using id, not using real name like in the links dataframe.. So we need to reformat it.</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>matrix_profile<span class="sc">$</span>IDsource <span class="ot">&lt;-</span> <span class="fu">match</span>(matrix_profile<span class="sc">$</span>source, nodes<span class="sc">$</span>name)<span class="sc">-</span><span class="dv">1</span> </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>matrix_profile<span class="sc">$</span>IDtarget <span class="ot">&lt;-</span> <span class="fu">match</span>(matrix_profile<span class="sc">$</span>target, nodes<span class="sc">$</span>name)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the Network</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">sankeyNetwork</span>(<span class="at">Links =</span> matrix_profile, </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Nodes =</span> nodes,</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Source =</span> <span class="st">"IDsource"</span>, </span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Target =</span> <span class="st">"IDtarget"</span>,</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Value =</span> <span class="st">"value"</span>, </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>                   <span class="at">NodeID =</span> <span class="st">"name"</span>, </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sinksRight=</span><span class="cn">FALSE</span>,</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fontSize =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Links is a tbl_df. Converting to a plain data frame.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you already have the matrix_profile_display data frame</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>matrix_profile_display <span class="ot">&lt;-</span>  matrix_profile <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>order_var, <span class="sc">-</span>IDsource, <span class="sc">-</span>IDtarget) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Nivel =</span> target,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">TIPO =</span> source, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Total =</span> value,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         Proporción <span class="ot">=</span> value2plot)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a flextable</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(matrix_profile_display)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply conditional background color for rows where TIPO is "PÚBLICO"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> ft <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bg</span>(<span class="at">i =</span> <span class="sc">~</span> TIPO <span class="sc">==</span> <span class="st">"PUBLIC"</span>, <span class="at">bg =</span> <span class="st">"grey"</span>, <span class="at">part =</span> <span class="st">"body"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_vanilla</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nivel =</span> <span class="st">"Educational Level"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">TIPO =</span> <span class="st">"Founding source"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Total =</span> <span class="st">"Total of Schools"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    Proporción <span class="ot">=</span> <span class="st">"Percentage (%)"</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Graph</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="sankeyNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5c64c29b9dd1442801b8" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-5c64c29b9dd1442801b8">{"x":{"links":{"source":[0,1,0,1,0,1,0,1,0,1],"target":[2,2,3,3,4,4,5,5,6,6],"value":[176,388,104,576,71,245,114,181,53,20]},"nodes":{"name":["PRIVATE","PUBLIC","KINDERGARTEN","ELEMENTARY SCHOOL","MIDDLE SCHOOL","HIGH SCHOOL","POSTSECONDARY EDUCATION"],"group":["PRIVATE","PUBLIC","KINDERGARTEN","ELEMENTARY SCHOOL","MIDDLE SCHOOL","HIGH SCHOOL","POSTSECONDARY EDUCATION"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":12,"fontFamily":null,"nodeWidth":15,"nodePadding":10,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ft</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-a3f1e808{}.cl-a3ee8438{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a3ee844c{font-family:'Helvetica';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a3efe9b8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a3efe9c2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a3eff32c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff32d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff32e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff336{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff337{width:0.75in;background-color:rgba(190, 190, 190, 1.00);vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff338{width:0.75in;background-color:rgba(190, 190, 190, 1.00);vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff339{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff340{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff341{width:0.75in;background-color:rgba(190, 190, 190, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3eff342{width:0.75in;background-color:rgba(190, 190, 190, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-a3f1e808"><thead><tr style="overflow-wrap:break-word;"><th class="cl-a3eff32c"><p class="cl-a3efe9b8"><span class="cl-a3ee8438">Educational Level</span></p></th><th class="cl-a3eff32c"><p class="cl-a3efe9b8"><span class="cl-a3ee8438">Founding source</span></p></th><th class="cl-a3eff32d"><p class="cl-a3efe9c2"><span class="cl-a3ee8438">Total of Schools</span></p></th><th class="cl-a3eff32c"><p class="cl-a3efe9b8"><span class="cl-a3ee8438">Percentage (%)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a3eff32e"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">KINDERGARTEN</span></p></td><td class="cl-a3eff32e"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PRIVATE</span></p></td><td class="cl-a3eff336"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">176</span></p></td><td class="cl-a3eff32e"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">31%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">KINDERGARTEN</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PUBLIC</span></p></td><td class="cl-a3eff338"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">388</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">69%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">ELEMENTARY SCHOOL</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PRIVATE</span></p></td><td class="cl-a3eff340"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">104</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">15%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">ELEMENTARY SCHOOL</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PUBLIC</span></p></td><td class="cl-a3eff338"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">576</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">85%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">MIDDLE SCHOOL</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PRIVATE</span></p></td><td class="cl-a3eff340"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">71</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">22%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">MIDDLE SCHOOL</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PUBLIC</span></p></td><td class="cl-a3eff338"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">245</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">78%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">HIGH SCHOOL</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PRIVATE</span></p></td><td class="cl-a3eff340"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">114</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">39%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">HIGH SCHOOL</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PUBLIC</span></p></td><td class="cl-a3eff338"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">181</span></p></td><td class="cl-a3eff337"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">61%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">POSTSECONDARY EDUCATION</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PRIVATE</span></p></td><td class="cl-a3eff340"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">53</span></p></td><td class="cl-a3eff339"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">73%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a3eff341"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">POSTSECONDARY EDUCATION</span></p></td><td class="cl-a3eff341"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">PUBLIC</span></p></td><td class="cl-a3eff342"><p class="cl-a3efe9c2"><span class="cl-a3ee844c">20</span></p></td><td class="cl-a3eff341"><p class="cl-a3efe9b8"><span class="cl-a3ee844c">27%</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="escuelas-por-ubicación" class="level1">
+<h1>Escuelas por ubicación</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data2plot <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(schools) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">NIVEL =</span> <span class="fu">str_trim</span>(NIVEL),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">MUNICIPIO =</span> <span class="fu">str_trim</span>(MUNICIPIO)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">value2plot =</span> value <span class="sc">/</span> <span class="fu">sum</span>(value) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">value2plot =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(value2plot, <span class="dv">0</span>), <span class="st">"%"</span>)) </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>mapa <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">paste0</span>(path2SP,<span class="st">"Data/5_1_4_3_Municipios_shape"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(CVE_ENT <span class="sc">==</span> <span class="st">"01"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">NOMGEO =</span> <span class="fu">case_when</span>(NOMGEO <span class="sc">==</span> <span class="st">"Aguascalientes"</span>         <span class="sc">~</span> <span class="st">"AGUASCALIENTES"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Asientos"</span>               <span class="sc">~</span> <span class="st">"ASIENTOS"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Calvillo"</span>               <span class="sc">~</span> <span class="st">"CALVILLO"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Cos�o"</span>               <span class="sc">~</span> <span class="st">"COSÍO"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Jes�s Mar�a"</span>      <span class="sc">~</span> <span class="st">"JESÚS MARÍA"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Pabell�n de Arteaga"</span> <span class="sc">~</span> <span class="st">"ENCARNACIÓN DE DÍAZ"</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Rinc�n de Romos"</span>     <span class="sc">~</span> <span class="st">"RINCÓN DE ROMOS"</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"San Jos� de Gracia"</span>  <span class="sc">~</span> <span class="st">"SAN JOSÉ DE GRACIA"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"Tepezal�"</span>            <span class="sc">~</span> <span class="st">"TEPEZALÁ"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"El Llano"</span>               <span class="sc">~</span> <span class="st">"EL LLANO"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                                  NOMGEO <span class="sc">==</span> <span class="st">"San Francisco de los Romo"</span> <span class="sc">~</span> <span class="st">"SAN FRANCISCO DE LOS ROMO"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">MUNICIPIO =</span> NOMGEO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `aguascalientes' from data source 
+  `/Users/cristinaalvarez/Documents/GitHub/Personal-Website/sites/schools-analysis/Data/5_1_4_3_Municipios_shape' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 11 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -102.8742 ymin: 21.62227 xmax: -101.8353 ymax: 22.45959
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ags_map <span class="ot">&lt;-</span> mapa <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(data2plot, <span class="at">by =</span> <span class="st">"MUNICIPIO"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">color_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      value  <span class="sc">&lt;=</span> <span class="dv">60</span>   <span class="sc">~</span> <span class="st">"bajo"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      value  <span class="sc">&lt;=</span> <span class="dv">250</span>  <span class="sc">~</span> <span class="st">"medio"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      value  <span class="sc">&lt;=</span> <span class="dv">1342</span>   <span class="sc">~</span> <span class="st">"alto"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color_group =</span> <span class="fu">as.factor</span>(color_group)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>cat_palette <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="st">"bajo"</span>  <span class="ot">=</span> <span class="st">"#99D7DD"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"medio"</span>  <span class="ot">=</span> <span class="st">"#0087A3"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"alto"</span> <span class="ot">=</span> <span class="st">"#004E70"</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Drawing plot</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ags_map, <span class="fu">aes</span>(<span class="at">label =</span> MUNICIPIO)) <span class="sc">+</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data  =</span> ags_map,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> color_group),</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"grey65"</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">size  =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data  =</span> ags_map,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill  =</span> <span class="cn">NA</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"grey25"</span>) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">""</span>,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values   =</span> cat_palette,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.value =</span> <span class="st">"grey95"</span>,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">drop =</span> F) <span class="sc">+</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_y_continuous(limits = c(1445631, 5273487)) +</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_x_continuous(limits = c(2581570, 5967160)) +</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text       =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid      =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border    =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin     =</span> <span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Graph</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Code_files/figure-html/a36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a flextable</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(data2plot)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply conditional background color for rows where TIPO is "PÚBLICO"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> ft <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_vanilla</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">MUNICIPIO =</span> <span class="st">"Educational Level"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="st">"Total of Schools"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">value2plot =</span> <span class="st">"Percentage (%)"</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the flextable</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ft</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-a41a022a{}.cl-a41705ca{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a41705d4{font-family:'Helvetica';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a4184700{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a418470a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a4184eb2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184eb3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ebc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ebd{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ec6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ec7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ec8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4184ed0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-a41a022a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-a4184eb2"><p class="cl-a4184700"><span class="cl-a41705ca">Educational Level</span></p></th><th class="cl-a4184eb3"><p class="cl-a418470a"><span class="cl-a41705ca">Total of Schools</span></p></th><th class="cl-a4184eb2"><p class="cl-a4184700"><span class="cl-a41705ca">Percentage (%)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a4184ebc"><p class="cl-a4184700"><span class="cl-a41705d4">AGUASCALIENTES</span></p></td><td class="cl-a4184ebd"><p class="cl-a418470a"><span class="cl-a41705d4">1,342</span></p></td><td class="cl-a4184ebc"><p class="cl-a4184700"><span class="cl-a41705d4">52%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">ASIENTOS</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">200</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">8%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">CALVILLO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">178</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">7%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">COSÍO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">49</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">2%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">EL LLANO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">103</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">4%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">ENCARNACIÓN DE DÍAZ</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">3</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">0%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">JESÚS MARÍA</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">236</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">9%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">LAGOS DE MORENO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">2</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">0%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">OJUELOS DE JALISCO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">2</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">0%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">PABELLÓN DE ARTEAGA</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">104</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">4%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">RINCÓN DE ROMOS</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">139</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">5%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">SAN FRANCISCO DE LOS ROMO</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">98</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">4%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">SAN JOSÉ DE GRACIA</span></p></td><td class="cl-a4184ec7"><p class="cl-a418470a"><span class="cl-a41705d4">42</span></p></td><td class="cl-a4184ec6"><p class="cl-a4184700"><span class="cl-a41705d4">2%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4184ec8"><p class="cl-a4184700"><span class="cl-a41705d4">TEPEZALÁ</span></p></td><td class="cl-a4184ed0"><p class="cl-a418470a"><span class="cl-a41705d4">88</span></p></td><td class="cl-a4184ec8"><p class="cl-a4184700"><span class="cl-a41705d4">3%</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

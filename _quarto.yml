@@ -10,6 +10,8 @@ website:
         text: Spanish
       - href: English.qmd
         text: English
+      - href: Code.qmd
+        text: Code
 
 format:
   html:

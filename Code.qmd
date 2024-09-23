@@ -12,7 +12,7 @@ This duality has generated a gap in educational opportunities, exacerbating soci
 
 # Distribution of schools by educational level and sector
 
-```{r, include=FALSE, warning=FALSE}
+```{r echo=TRUE, warning=FALSE}
 # Required Packages, and data set
 source("Settings.R")
 
@@ -109,20 +109,20 @@ ft <- ft %>%
 ::: panel-tabset
 ## Graph
 
-```{r a34, include=TRUE, warning=FALSE, echo=FALSE, fig.height= 5}
+```{r a34, include=TRUE, warning=FALSE, echo=TRUE, fig.height= 5}
 p
 ```
 
 ## Data
 
-```{r c34, include=TRUE, warning=FALSE, echo=FALSE, fig.height= 8.5}
+```{r c34, include=TRUE, warning=FALSE, echo=TRUE, fig.height= 8.5}
 ft
 ```
 :::
 
 # Escuelas por ubicación
 
-```{r, include=FALSE, warning=FALSE}
+```{r echo=TRUE, warning=FALSE}
 
 data2plot <- as.data.frame(schools) %>%
   mutate(NIVEL = str_trim(NIVEL),
@@ -196,13 +196,15 @@ p <- ggplot(ags_map, aes(label = MUNICIPIO)) +
 ::: panel-tabset
 ## Graph
 
-```{r a35, include=TRUE, warning=FALSE, echo=FALSE, fig.height= 5}
+
+
+```{r a36, echo=TRUE, fig.height=5, warning=FALSE}
 p
 ```
 
 ## Data
 
-```{r c35, include=TRUE, warning=FALSE, echo=FALSE, fig.height= 8.5}
+```{r c37, echo=TRUE, fig.height=8.5, warning=FALSE}
 # Convert to a flextable
 ft <- flextable(data2plot)
 
